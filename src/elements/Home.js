@@ -1,13 +1,20 @@
 import Navbar from './../elements/Navbar';
 import './../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-function App() {
+import $ from 'jquery';
+import { useEffect } from 'react';
+function Home() {
+    useEffect(() => {
+        document.title = `Főolal`;
+    });
     return (
         <>
-            <Navbar />
-            <p className='text-center'>Hello world!! This is a home pgae</p>
+            <header>
+                <Navbar />
+            </header>
+            <p className='text-center'>Hello world!!</p>
         </>
     );
 }
 
-export default App;
+export default Home;
