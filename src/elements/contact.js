@@ -10,7 +10,7 @@ function Contact() {
     return (
         <>
             <Navbar />
-            <p className='text-center'>Kapcsolat</p>
+            <p className='text-center'>Kapcsolat !!</p>
         </>
     );
 }
