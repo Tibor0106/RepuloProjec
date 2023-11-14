@@ -3,6 +3,7 @@ import './../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import $ from 'jquery';
 import { useEffect } from 'react';
+import SearchPanel from './SearchPanel';
 function Home() {
     useEffect(() => {
         document.title = `Főolal`;
@@ -12,7 +13,9 @@ function Home() {
             <header>
                 <Navbar />
             </header>
-            <p className='text-center'>Hello world!!</p>
+            <div className='mt-5'>
+                <SearchPanel />
+            </div>
         </>
     );
 }
