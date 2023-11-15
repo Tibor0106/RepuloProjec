@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 function Contact() {
     useEffect(() => {
 
-        document.title = `Kapcsolat`;
+        document.title = `EuroJET | Kapcsolat`;
     });
     return (
         <>
