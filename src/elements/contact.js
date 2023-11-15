@@ -10,7 +10,17 @@ function Contact() {
     return (
         <>
             <Navbar />
-            <p className='text-center'>Kapcsolat !!</p>
+            <div className='container contact'>
+                <div className='row'>
+                    <div className='col-md-5'>
+                        <div className='row'>
+                            <div className='col-md'>
+                                <></>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </>
     );
 }
