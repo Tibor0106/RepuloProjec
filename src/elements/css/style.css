@@ -1,0 +1,33 @@
+:root {
+
+    --maincolor: #0f6eae;
+    --bg: #ffffffe9;
+}
+
+body {
+    background-color: var(--bg);
+}
+
+.contact {
+    margin-top: 26vh;
+
+}
+
+.contact button {
+    background: var(--maincolor);
+    color: white;
+    font-weight: bold;
+}
+
+.contact h1 {
+    color: var(--maincolor)
+}
+
+.contact h5 {
+    font-weight: bold;
+}
+
+.contact a {
+    color: var(--maincolor);
+    font-weight: bold;
+}
