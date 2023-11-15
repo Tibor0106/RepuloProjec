@@ -13,9 +13,9 @@ function Contact() {
         <>
             <Navbar />
             <motion.div
-                initial={{ opacity: 0 }} // Az elem kezdeti átlátszatlansága
-                animate={{ opacity: 1 }} // Az elem animációval történő megjelenítése
-                exit={{ opacity: 0 }} // Az elem kilépésekor alkalmazott animáció
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
             >
                 <div className="container contact">
                     <div className="row">
