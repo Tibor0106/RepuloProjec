@@ -42,7 +42,7 @@ const nav = (active, navItems, loc) => {
                                 />
                                 {navItems.map(i =>
 
-                                    <NavItem key={"as"} isActive={i.pagePath == loc.pathname ? true : false} id={i.id} name={i.name}></NavItem>
+                                    <NavItem key={"as"} isActive={i.pagePath == loc.pathname ? true : false} path={i.pagePath} id={i.id} name={i.name}></NavItem>
                                 )}
                             </div>
                         </div>
@@ -53,7 +53,7 @@ const nav = (active, navItems, loc) => {
     );
 };
 
-const NavItem = ({ isActive, name, id }) => {
+const NavItem = ({ isActive, name, id, path }) => {
     return (
         <>
 
@@ -69,7 +69,7 @@ const NavItem = ({ isActive, name, id }) => {
                     type: "spring", stiffness: 100
                 }}
             >
-                <a className={isActive ? 'active ms-5' : 'ms-5'}>{name}</a>
+                <a className={isActive ? 'active ms-5' : 'ms-5'} href={path}>{name}</a>
             </motion.p>
 
         </>

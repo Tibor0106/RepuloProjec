@@ -52,3 +52,14 @@ body {
 .customNav img {
     height: 6vh;
 }
+
+.p404 {
+    text-shadow: 0 0 3px black;
+    font-weight: bold;
+    font-family: monospace;
+}
+
+.p404img {
+
+    filter: drop-shadow(0 0 0.75rem rgb(227, 227, 227));
+}
