@@ -2,7 +2,7 @@ import './../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from './../logo.svg';
 import { useEffect, useState, } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 function App() {
@@ -68,7 +68,7 @@ const NavItem = ({ isActive, name, id, path }) => {
                     type: "spring", stiffness: 100
                 }}
             >
-                <a className={isActive ? 'active ms-5' : 'ms-5'} href={path}>{name}</a>
+                <Link to={path} className={isActive ? 'active ms-5' : 'ms-5'} >{name}</Link>
             </motion.p>
 
         </>
