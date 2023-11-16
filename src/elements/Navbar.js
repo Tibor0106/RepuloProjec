@@ -2,7 +2,6 @@ import './../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from './../logo.svg';
 import { useEffect, useState, } from 'react';
-import { act } from 'react-dom/test-utils';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
