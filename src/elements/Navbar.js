@@ -1,34 +1,31 @@
 import './../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from './../logo.svg';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, } from 'react';
+import { act } from 'react-dom/test-utils';
+import { useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 function App() {
-    const navList = [new Page("Home", ""), new Page("Kapcsolat", "/contact")];
+    const navList = [new Page("Home", "/", 0), new Page("Kapcsolat", "/contact", 1), new Page("Rólunk", "/about", 2)];
     const [active, setActive] = useState("");
-    const navItems = [];
-
-    useEffect(() => {
-        navList.forEach((page, index) => {
-            navItems.push(<NavItem key={index} isActive={page.name === active} name={page.name} path={page.pagePath} />);
-        });
-    }, [active]);
-
+    const loc = useLocation();
     return (
         <>
-            {nav(active, navItems)}
+            {nav(active, navList, loc)}
         </>
     );
 }
 
 class Page {
-    constructor(name, pagePath) {
+    constructor(name, pagePath, id) {
         this.name = name;
         this.pagePath = pagePath;
+        this.id = id;
     }
 }
 
-const nav = (active, navItems) => {
+const nav = (active, navItems, loc) => {
     return (
         <>
             <nav className='customNav'>
@@ -38,8 +35,15 @@ const nav = (active, navItems) => {
                             <img src={logo} className='img-fluid' alt="Logo" />
                         </div>
                         <div className='col-md'>
-                            <div className='d-flex'>
-                                {navItems}
+                            <div className='d-flex navItems'>
+                                <motion.div
+                                    animate={{ x: 100 }}
+                                    transition={{ delay: 1 }}
+                                />
+                                {navItems.map(i =>
+
+                                    <NavItem key={"as"} isActive={i.pagePath == loc.pathname ? true : false} id={i.id} name={i.name}></NavItem>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -49,9 +53,27 @@ const nav = (active, navItems) => {
     );
 };
 
-const NavItem = ({ isActive, name, path }) => {
+const NavItem = ({ isActive, name, id }) => {
     return (
-        <p className={isActive ? 'active' : ''}>{name}</p>
+        <>
+
+            <motion.p
+                initial={{ opacity: 0 }}
+                animate={{
+                    opacity: 1,
+                    x: 100
+                }}
+                exit={{ opacity: 0 }}
+                transition={{
+                    delay: id / 5,
+                    type: "spring", stiffness: 100
+                }}
+            >
+                <a className={isActive ? 'active ms-5' : 'ms-5'}>{name}</a>
+            </motion.p>
+
+        </>
+
     );
 };
 

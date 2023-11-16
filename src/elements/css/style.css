@@ -31,3 +31,24 @@ body {
     color: var(--maincolor);
     font-weight: bold;
 }
+
+.customNav .active {
+    font-weight: bold;
+}
+
+.customNav {
+    background: var(--maincolor);
+}
+
+.navItems {
+    margin-top: 15px;
+}
+
+.navItems a {
+    text-decoration: none;
+    color: white;
+}
+
+.customNav img {
+    height: 6vh;
+}
