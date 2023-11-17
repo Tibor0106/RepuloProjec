@@ -38,7 +38,7 @@ function About() {
                         delay: 0.25
                     }}
                 >
-                    <h3>Kik vagyink mi?</h3>
+                    <h3>Kik vagyunk mi?</h3>
                     <div className='mt-3 mb-3'>
                         <p>Üdvözöljük az EuroJet repülőgépes társaság világában!</p>
                         <p>
