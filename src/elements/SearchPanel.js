@@ -36,7 +36,6 @@ function Panel() {
     }
 
     const searchFrom = () => {
-        console.log("Search from called");
         const value = searchFromRef.current.value;
         if (value.length === 0) {
             setSearchResultsFrom([]);
@@ -53,13 +52,11 @@ function Panel() {
     }
 
     const searchTo = () => {
-        console.log("Search to called");
         const value = searchToRef.current.value;
         if (value.length === 0) {
             setSearchResultsTo([]);
             return;
         }
-
         var items = [];
         destinations.forEach(i => {
             if (i.destinationName.toLowerCase().includes(value.toLowerCase())) {
@@ -128,7 +125,6 @@ function Panel() {
                         </div>
                     </div>
                 </div>
-                {/* ... */}
             </div>
         </>
     );
