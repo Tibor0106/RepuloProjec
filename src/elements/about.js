@@ -6,7 +6,6 @@ import { useEffect } from 'react';
 import p404 from './pics/404.png'
 import { motion } from 'framer-motion';
 
-
 function About() {
     useEffect(() => {
         document.title = `EuroJET | Rólunk`;

@@ -94,3 +94,7 @@ body {
 }
 
 .info p {}
+
+.text-bold {
+    font-weight: bold;
+}
