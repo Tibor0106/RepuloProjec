@@ -40,7 +40,7 @@ function About() {
                 >
                     <h3>Kik vagyunk mi?</h3>
                     <div className='mt-3 mb-3'>
-                        <p>Üdvözöljük az EuroJet repülőgépes társaság világában!</p>
+                        <p>Üdvözöljük az EuroJet repülőgépes társaság Európában!</p>
                         <p>
                             Az EuroJet büszkén áll a repülés iránti szenvedélyünkkel és az utasok iránti elkötelezettségünkkel. Az Európai égbolton tündöklő csillagként szállunk magasra,
                             hogy egyedülálló élményeket és kifogástalan szolgáltatást nyújtsunk minden utasunknak.</p>
