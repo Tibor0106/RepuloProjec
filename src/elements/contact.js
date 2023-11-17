@@ -24,7 +24,7 @@ function Contact() {
                 <div className="container contact info">
                     <div className="row">
                         <div className="col-md-6">
-                            <div className="row mb-3">
+                            <div className="row">
                                 <div className="col-sm">
                                     <div className="input-group mb-3">
                                         <input className="form-control" type="text" placeholder="Email" />
