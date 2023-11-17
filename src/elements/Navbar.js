@@ -7,11 +7,10 @@ import { motion } from 'framer-motion';
 
 function App() {
     const navList = [new Page("Home", "/", 0), new Page("Kapcsolat", "/contact", 1), new Page("Rólunk", "/about", 2)];
-    const [active, setActive] = useState("");
     const loc = useLocation();
     return (
         <>
-            {nav(active, navList, loc)}
+            {nav(navList, loc)}
         </>
     );
 }
@@ -24,7 +23,7 @@ class Page {
     }
 }
 
-const nav = (active, navItems, loc) => {
+const nav = (navItems, loc) => {
     return (
         <>
             <nav className='customNav'>

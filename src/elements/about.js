@@ -95,10 +95,6 @@ function About() {
                     </ul>
 
                 </motion.div>
-
-
-
-
             </div>
 
         </>
