@@ -10,11 +10,11 @@ function Panel() {
     const [destinations, setDestinations] = useState([]);
     const [searchResultsFrom, setSearchResultsFrom] = useState([]);
     const [searchResultsTo, setSearchResultsTo] = useState([]);
+    const [searchActive, setSearchActive] = useState(false);
     const [idFrom, setIdfrom] = useState(-1);
     const [idTo, setIdTo] = useState(-1);
     const searchFromRef = useRef(null);
     const [searchFlightresults, setSearchFlightresults] = useState([]);
-
     const searchToRef = useRef(null);
 
     useEffect(() => {
@@ -48,7 +48,8 @@ function Panel() {
             setSearchResultsFrom([]);
             return;
         }
-
+        setSearchActive(false);
+        setSearchFlightresults([])
         var items = [];
         destinations.forEach(i => {
             if (i.destinationName.toLowerCase().includes(value.toLowerCase())) {
@@ -64,6 +65,8 @@ function Panel() {
             setSearchResultsTo([]);
             return;
         }
+        setSearchActive(false);
+        setSearchFlightresults([])
         var items = [];
         destinations.forEach(i => {
             if (i.destinationName.toLowerCase().includes(value.toLowerCase())) {
@@ -76,8 +79,8 @@ function Panel() {
         fetch(`http://127.0.0.1:3500/searchflight/${idFrom}/${idTo}/admin`)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 setSearchFlightresults(data);
+                setSearchActive(true);
             })
             .catch(error => {
                 console.error('Hiba a blog üzenetek lekérdezése közben:', error);
@@ -115,6 +118,13 @@ function Panel() {
                         <button className="btn btn-primary">Foglalás</button>
                     </div>
                 </div>
+            </div>
+        )
+    }
+    const NincsTalalat = () => {
+        return (
+            <div className="alert alert-warning" role="alert">
+                Nincs találat
             </div>
         )
     }
@@ -184,15 +194,19 @@ function Panel() {
                         <button className='btn btn-primary form-control' onClick={searchFlight}>Kersés</button>
                     </div>
                     {
+
                         searchFlightresults.map(i => (
+
                             <FlightResultCard data={i}></FlightResultCard>
+
                         ))
+
                     }
+                    {searchFlightresults.length == 0 && searchActive ? <NincsTalalat /> : ''}
+
                 </div>
             </div>
         </>
     );
-
 }
-
 export default Panel;
