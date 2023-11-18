@@ -17,9 +17,11 @@ function Panel() {
     const [searchFlightresults, setSearchFlightresults] = useState([]);
     const searchToRef = useRef(null);
 
+    const [fromPlace, setFromTo] = useState("");
+    const [toDests, setToDests] = useState([]);
     useEffect(() => {
         document.title = `EuroJET`;
-        fetch('http://127.0.0.1:3500/destinations/admin')
+        fetch('http://eurojet.ddns.net:3500/destinations')
             .then(response => response.json())
             .then(data => {
                 setDestinations(data);
@@ -76,7 +78,8 @@ function Panel() {
         setSearchResultsTo(items);
     }
     const searchFlight = () => {
-        fetch(`http://127.0.0.1:3500/searchflight/${idFrom}/${idTo}/admin`)
+        getFlightDestinations(idFrom);
+        fetch(`http://eurojet.ddns.net:3500/searchflight/${idFrom}/${searchToRef.current.value.length == 0 ? -1 : idTo}`)
             .then(response => response.json())
             .then(data => {
                 setSearchFlightresults(data);
@@ -87,7 +90,18 @@ function Panel() {
                 setDestinations([]);
             });
     }
-    const FlightResultCard = ({ data }) => {
+    const getFlightDestinations = (id) => {
+        fetch(`http://eurojet.ddns.net:3500/getrelevantdestinations/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            setToDests(data);
+        })
+        .catch(error => {
+            console.error('Hiba a blog üzenetek lekérdezése közben:', error);
+            setToDests([]);
+        });
+    }
+    const FlightResultCard = ({data}) => {
         return (
             <div className="flight-card mb-3">
                 <div className="row">
@@ -104,7 +118,7 @@ function Panel() {
                     </div>
                     <div className="mt-3 col-sm-2">
                         <label for=""> HOVA:</label>
-                        <p className="ms-3">{searchToRef.current.value}</p>
+                        <p className="ms-3">{toDests.find(dest => dest.destinationId === data.destinationId).destinationName}</p>
                     </div>
                     <div className="mt-3 col-sm-2">
                         <label for=""> INDULÁS:</label>
@@ -198,9 +212,7 @@ function Panel() {
                         <button className='btn btn-primary form-control' onClick={searchFlight}>Keresés</button>
                     </div>
                     {
-
                         searchFlightresults.map(i => (
-
                             <FlightResultCard data={i}></FlightResultCard>
 
                         ))
