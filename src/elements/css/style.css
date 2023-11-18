@@ -98,3 +98,17 @@ body {
 .text-bold {
     font-weight: bold;
 }
+
+.flight-card {
+    padding: 10px;
+    background: #0081b41c;
+    border-radius: 5px;
+}
+
+.flight-card p {
+    font-family: monospace;
+}
+
+.flight-card label {
+    font-weight: bold;
+}
