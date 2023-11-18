@@ -195,7 +195,7 @@ function Panel() {
                     </div>
 
                     <div className='input-group mb-3'>
-                        <button className='btn btn-primary form-control' onClick={searchFlight}>Kersés</button>
+                        <button className='btn btn-primary form-control' onClick={searchFlight}>Keresés</button>
                     </div>
                     {
 
