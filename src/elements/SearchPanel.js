@@ -3,6 +3,7 @@ import { IoMdAirplane } from "react-icons/io";
 import { FaCar } from "react-icons/fa6";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap'
+import { FaHotel } from "react-icons/fa";
 
 function Panel() {
     const [destinations, setDestinations] = useState([]);
@@ -87,8 +88,13 @@ function Panel() {
                     </button>
                 </li>
                 <li className="nav-item" role="presentation">
-                    <button className="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">
-                        Contact
+                    <button className="nav-link fs-4" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">
+                        <div className='d-flex'>
+                            <FaHotel size={40} />
+                            <span className='ms-3'>
+                                Hotel</span>
+                        </div>
+
                     </button>
                 </li>
             </ul>
