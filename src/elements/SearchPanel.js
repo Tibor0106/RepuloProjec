@@ -91,7 +91,7 @@ function Panel() {
         return (
             <div className="flight-card mb-3">
                 <div className="row">
-                    <div className="col-sm">
+                    <div className="col-sm-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor"
                             className="bi bi-airplane-engines" viewBox="0 0 16 16">
                             <path
@@ -114,9 +114,12 @@ function Panel() {
                         <label for=""> ÉRKEZÉS:</label>
                         <p className="ms-3">{data.arrivalTime}</p>
                     </div>
-                    <div className="col-sm-2 ms-3" style={{ marginTop: '35px' }}>
-                        <button className="btn btn-primary">Foglalás</button>
-                    </div>
+
+                </div>
+
+                <p className='price text-center mt-4'>25.000 FT</p>
+                <div className="col-sm-2 input-group" style={{ marginTop: '35px' }}>
+                    <button className="btn btn-primary form-control">Foglalás</button>
                 </div>
             </div>
         )
@@ -190,6 +193,7 @@ function Panel() {
                             </div>
                         </div>
                     </div>
+
                     <div className='input-group mb-3'>
                         <button className='btn btn-primary form-control' onClick={searchFlight}>Kersés</button>
                     </div>
@@ -205,7 +209,7 @@ function Panel() {
                     {searchFlightresults.length == 0 && searchActive ? <NincsTalalat /> : ''}
 
                 </div>
-            </div>
+            </div >
         </>
     );
 }

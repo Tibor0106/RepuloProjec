@@ -112,3 +112,12 @@ body {
 .flight-card label {
     font-weight: bold;
 }
+
+.flight-card .price {
+    text-align: center;
+    padding: 8px;
+    background: #5eb41381;
+    border-radius: 10px;
+    color: #353535;
+    font-weight: bold;
+}
