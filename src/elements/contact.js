@@ -3,12 +3,20 @@ import './../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/style.css';
 import { motion } from 'framer-motion';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 function Contact() {
+    const email = useRef(null);
+    const name = useRef(null);
+    const address = useRef(null);
+    const phoneNumber = useRef(null);
+    const message = useRef(null);
     useEffect(() => {
 
         document.title = `EuroJET | Kapcsolat`;
     });
+    const send = () => {
+
+    }
     return (
         <>
             <Navbar />
@@ -27,31 +35,31 @@ function Contact() {
                             <div className="row">
                                 <div className="col-sm">
                                     <div className="input-group mb-3">
-                                        <input className="form-control" type="text" placeholder="Email" />
+                                        <input className="form-control" type="text" placeholder="Email" ref={email} />
                                     </div>
                                 </div>
                                 <div className="col-sm">
                                     <div className="input-group mb-3">
-                                        <input className="form-control" type="text" placeholder="Név" />
+                                        <input className="form-control" type="text" placeholder="Név" ref={name} />
                                     </div>
                                 </div>
                             </div>
                             <div className="row mb-3">
                                 <div className="col-sm">
                                     <div className="input-group mb-3" />
-                                    <input className="form-control" type="text" placeholder="Cím" />
+                                    <input className="form-control" type="text" placeholder="Cím" ref={address} />
                                 </div>
                             </div>
                             <div className="col-sm">
                                 <div className="input-group mb-3">
-                                    <input className="form-control" type="text" placeholder="Telefonszám" />
+                                    <input className="form-control" type="text" placeholder="Telefonszám" ref={phoneNumber} />
                                 </div>
                             </div>
                             <div className="input-group mb-3">
-                                <textarea className="form-control" placeholder="Írd be az üzeneted">
+                                <textarea className="form-control" placeholder="Írd be az üzeneted" ref={message}>
                                 </textarea>
                             </div><div className="input-group mb-3">
-                                <button className="btn form-control">Küldés</button>
+                                <button className="btn form-control" onClick={send}>Küldés</button>
                             </div>
                         </div>
                         <div className="col-md ms-md-5">

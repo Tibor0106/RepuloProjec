@@ -34,6 +34,7 @@ body {
 
 .customNav .active {
     font-weight: bold;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.304);
 }
 
 .customNav {
@@ -46,7 +47,19 @@ body {
 
 .navItems a {
     text-decoration: none;
-    color: black;
+    color: rgb(10, 10, 10);
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.194);
+
+}
+
+.navItems a::after {
+    content: '';
+    display: block;
+    white-space: pre;
+    border: 2px solid var(--maincolor);
+    border-radius: 10px;
+    margin-left: 45px;
+
 }
 
 .customNav img {
@@ -75,6 +88,7 @@ body {
     text-align: center;
     color: white;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-shadow: 0 0 2px var(--maincolor);
 }
 
 .info {
@@ -121,3 +135,16 @@ body {
     color: #353535;
     font-weight: bold;
 }
+
+.searchPanel input,
+button {
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.form-control:focus {
+    border-color: var(--maincolor);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.167), 1px 0 8px var(--maincolor);
+}
+
+.list {}

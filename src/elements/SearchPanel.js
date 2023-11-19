@@ -163,7 +163,7 @@ function Panel() {
         )
     }
     return (
-        <>
+        <div className='searchPanel'>
             <ul className="nav nav-tabs" id="myTab" role="tablist">
                 <li className="nav-item" role="presentation">
                     <button className="nav-link active fs-4" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
@@ -199,10 +199,18 @@ function Panel() {
                             <label className='mt-5 text-bold'>Honnan</label>
                             <div className='input-group mb-3'>
                                 <input type='text' className='form-control dropdown-toggle' onInput={searchFrom} data-bs-toggle="dropdown" aria-expanded="false" ref={searchFromRef} />
-                                <ul className="dropdown-menu">
+                                <ul className="dropdown-menu list p-2">
 
                                     {searchResultsFrom.map(i => (
-                                        <li key={i.destinationName}><a className="dropdown-item" onClick={event => select(i.destinationId, i.destinationName, "from")}>{i.destinationName}</a></li>
+                                        <motion.div
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            transition={{ delay: searchResultsFrom.indexOf(i) / 15 }}
+                                        >
+                                            <li key={i.destinationName}><a className="dropdown-item" onClick={event => select(i.destinationId, i.destinationName, "from")}>{i.destinationName}</a></li>
+                                        </motion.div>
+
                                     ))}
 
                                     {searchResultsFrom.length === 0 ? "Kezdj el gépelni a kereséshez!" : ""}
@@ -213,10 +221,18 @@ function Panel() {
                             <label className='mt-5 text-bold'>Hova</label>
                             <div className='input-group mb-3'>
                                 <input type='text' className='form-control dropdown-toggle' onInput={searchTo} data-bs-toggle="dropdown" aria-expanded="false" ref={searchToRef} />
-                                <ul className="dropdown-menu">
+                                <ul className="dropdown-menu p-2 list">
 
                                     {searchResultsTo.map(i => (
-                                        <li key={i.destinationName}><a className="dropdown-item" onClick={event => select(i.destinationId, i.destinationName, "to")}>{i.destinationName}</a></li>
+                                        <motion.div
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            transition={{ delay: searchResultsTo.indexOf(i) / 15 }}
+                                        >
+                                            <li key={i.destinationName}><a className="dropdown-item" onClick={event => select(i.destinationId, i.destinationName, "to")}>{i.destinationName}</a></li>
+                                        </motion.div>
+
                                     ))}
 
                                     {searchResultsTo.length === 0 ? "Kezdj el gépelni a kereséshez!" : ""}
@@ -239,7 +255,7 @@ function Panel() {
 
                 </div>
             </div >
-        </>
+        </div>
     );
 }
 export default Panel;
