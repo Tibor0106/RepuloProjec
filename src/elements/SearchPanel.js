@@ -77,6 +77,11 @@ function Panel() {
         })
         setSearchResultsTo(items);
     }
+    function seperator(input) {
+        let nums = input.toString().replace('\.\g');
+        if (!nums || nums.endsWith('.')) return;
+        return parseFloat(nums).toLocaleString();
+      }
     const searchFlight = () => {
         getFlightDestinations(idFrom);
         fetch(`http://eurojet.ddns.net:3500/searchflight/${idFrom}/${searchToRef.current.value.length == 0 ? -1 : idTo}`)
@@ -131,7 +136,7 @@ function Panel() {
 
                 </div>
 
-                <p className='price text-center mt-4'>25.000 FT</p>
+                <p className='price text-center mt-4'>{seperator(data.price)} FT</p>
                 <div className="col-sm-2 input-group" style={{ marginTop: '35px' }}>
                     <button className="btn btn-primary form-control">Foglalás</button>
                 </div>
