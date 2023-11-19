@@ -23,7 +23,15 @@ function Home() {
                 </motion.div>
             </div>
             <div className='container info'>
-                <SearchPanel />
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ delay: 0.1 }}
+                >
+                    <SearchPanel />
+                </motion.div>
+
             </div>
 
         </>
