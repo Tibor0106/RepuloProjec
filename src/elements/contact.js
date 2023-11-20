@@ -15,7 +15,12 @@ function Contact() {
         document.title = `EuroJET | Kapcsolat`;
     });
     const send = () => {
-
+        var v_email = email.current.value;
+        var v_name = name.current.value;
+        var v_address = address.current.value;
+        var v_phoneNumber = phoneNumber.current.value;
+        var v_message = message.current.value;
+        window.location = `http://eurojet.ddns.net:3500/addmessage/${v_email}/${v_name}/${v_address}/${v_phoneNumber}/${v_message}/admin`;
     }
     return (
         <>
@@ -35,7 +40,7 @@ function Contact() {
                             <div className="row">
                                 <div className="col-sm">
                                     <div className="input-group mb-3">
-                                        <input className="form-control" type="text" placeholder="Email" ref={email} />
+                                        <input className="form-control" type="email" placeholder="Email" ref={email} />
                                     </div>
                                 </div>
                                 <div className="col-sm">
