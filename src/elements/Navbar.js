@@ -30,7 +30,7 @@ const nav = (navItems, loc) => {
                 <div className='container'>
                     <div className='row'>
                         <div className='col-md-3'>
-                            <img src={logo} className='img-fluid' alt="Logo" />
+                            <img src={logo} className='img-fluid logo d-md-block d-none' alt="Logo" />
                         </div>
                         <div className='col-md'>
                             <div className='d-flex navItems'>

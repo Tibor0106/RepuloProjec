@@ -5,8 +5,15 @@ import $ from 'jquery';
 import { useEffect, useState } from 'react';
 import SearchPanel from './SearchPanel';
 import { motion } from 'framer-motion';
+import Popup from './Popup';
+
 
 function Home() {
+    const popups = () =>{
+        return(
+             <p> Ez  a tartalom</p>
+        )
+    }
     return (
         <>
             <header>
@@ -23,9 +30,19 @@ function Home() {
                 </motion.div>
             </div>
             <div className='container info'>
-                <SearchPanel />
-            </div>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ delay: 0.1 }}
+                >
+                    <SearchPanel />
+                </motion.div>
 
+            </div>
+            <div>
+        </div>
+       
         </>
     );
 }

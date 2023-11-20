@@ -35,14 +35,11 @@ function About() {
             >
                 <div className='container info'>
                     <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{
-                            type: "spring",
-                            stiffness: 260,
-                            damping: 20,
-                            delay: 1
-                        }}
+                       initial={{ opacity: 0 }}
+                       animate={{ opacity: 1 }}
+                       transition={{
+                           delay: 0.52
+                       }}
                     >
                         <h3>Kik vagyunk mi?</h3>
                         <div className='mt-3 mb-3'>
@@ -54,14 +51,11 @@ function About() {
 
                     </motion.div>
                     <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{
-                            type: "spring",
-                            stiffness: 260,
-                            damping: 20,
-                            delay: 2
-                        }}
+                       initial={{ opacity: 0 }}
+                       animate={{ opacity: 1 }}
+                       transition={{
+                           delay: 0.85
+                       }}
                     >
                         <h3>mit kinálunk?</h3>
                         <div className='mt-3 mb-3'>
@@ -73,13 +67,10 @@ function About() {
                         </div>
                     </motion.div>
                     <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1}}
                         transition={{
-                            type: "spring",
-                            stiffness: 260,
-                            damping: 20,
-                            delay: 3
+                            delay: 1.16
                         }}
                     >
                         <h3>miért válassz minket?</h3>
