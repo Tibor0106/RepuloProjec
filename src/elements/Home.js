@@ -5,8 +5,15 @@ import $ from 'jquery';
 import { useEffect, useState } from 'react';
 import SearchPanel from './SearchPanel';
 import { motion } from 'framer-motion';
+import Popup from './Popup';
+
 
 function Home() {
+    const popups = () =>{
+        return(
+             <p> Ez  a tartalom</p>
+        )
+    }
     return (
         <>
             <header>
@@ -33,7 +40,9 @@ function Home() {
                 </motion.div>
 
             </div>
-
+            <div>
+        </div>
+       
         </>
     );
 }

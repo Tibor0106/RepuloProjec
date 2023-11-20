@@ -6,9 +6,11 @@ import Home from './elements/Home';
 import Contact from './elements/contact';
 import NoPage from './elements/NoPage';
 import About from './elements/about';
+import Popup from './elements/Popup';
 
 function App() {
   return (
+    <>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -16,7 +18,8 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="*" element={<NoPage />} />
       </Routes>
-    </BrowserRouter>
+    </BrowserRouter>  
+    </>   
   );
 }
 
