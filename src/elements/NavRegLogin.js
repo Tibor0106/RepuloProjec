@@ -12,12 +12,23 @@ import "./css/style.css";
 function LoginReg() {
     const [loginPopup, setLoginPopup] = useState(null);
     const [registerPopup, setRegisterPopup] = useState(null);
-    const openPopup = (value) => {
+    const makekey = (length) => {
+        let result = '';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        let counter = 0;
+        while (counter < length) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            counter += 1;
+        }
+        return result;
+    }
 
+    const openPopup = (value) => {
         if (value == "login") {
-            setLoginPopup(<Popup title={"Bejelentkezés"} Content={loginContent} />)
+            setLoginPopup(<Popup key={makekey(4)} title={"Bejelentkezés"} Content={loginContent} />)
         } else {
-            setRegisterPopup(<Popup title={"Regisztáció"} Content={regContent} />)
+            setRegisterPopup(<Popup key={makekey(4)} title={"Regisztáció"} Content={regContent} />)
         }
 
     }
