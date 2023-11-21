@@ -4,9 +4,11 @@ import logo from './../logo.svg';
 import { useEffect, useState, } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import NavRegLogin from './NavRegLogin';
 
 function App() {
-    const navList = [new Page("Home", "/", 0), new Page("Kapcsolat", "/contact", 1), new Page("Rólunk", "/about", 2)];
+    const navList = [new Page("Home", "/", 0), new Page("Kapcsolat", "/contact", 1), new Page("Rólunk", "/about", 2)
+    ];
     const loc = useLocation();
     return (
         <>
@@ -32,7 +34,7 @@ const nav = (navItems, loc) => {
                         <div className='col-md-3'>
                             <img src={logo} className='img-fluid logo d-md-block d-none' alt="Logo" />
                         </div>
-                        <div className='col-md'>
+                        <div className='col-md-6'>
                             <div className='d-flex navItems'>
                                 <motion.div
                                     animate={{ x: 100 }}
@@ -43,6 +45,10 @@ const nav = (navItems, loc) => {
                                     <NavItem key={"as"} isActive={i.pagePath == loc.pathname ? true : false} path={i.pagePath} id={i.id} name={i.name}></NavItem>
                                 )}
                             </div>
+
+                        </div>
+                        <div className='col-md nt'>
+                            <NavRegLogin />
                         </div>
                     </div>
                 </div>
