@@ -53,8 +53,17 @@ function LoginReg() {
         return (
             <>
                 <p className='text-center fs-4'>Regisztráció</p>
-                <div className='input-group mb-3'>
-                    <input type='text' className='form-control' placeholder='Felhasználónév' />
+                <div className='row'>
+                    <div className='col-md '>
+                        <div className='input-group mb-3'>
+                            <input type='text' className='form-control' placeholder='Felhasználónév' />
+                        </div>
+                    </div>
+                    <div className='col-md '>
+                        <div className='input-group mb-3'>
+                            <input type='text' className='form-control' placeholder='Email' />
+                        </div>
+                    </div>
                 </div>
                 <div className='input-group mb-3'>
                     <input type='password' className='form-control' placeholder='Jelszó' />
