@@ -2,14 +2,32 @@ import Navbar from './../elements/Navbar';
 import './../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import $ from 'jquery';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import p404 from './pics/404.png'
 import { motion } from 'framer-motion';
 
 function About() {
+    const [about, setAbout] = useState([]);
+    const [active, setActive] = useState(0);
+
     useEffect(() => {
         document.title = `EuroJET | Rólunk`;
-    });
+        fetch('http://localhost:3500/about/get/all/admin')
+            .then(response => response.json())
+            .then(data => {
+                setAbout(data);
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Hiba a blog üzenetek lekérdezése közben:', error);
+                setAbout([]);
+            });
+
+    }, []);
+    const select = (id) => {
+        setActive(id);
+    }
+
     return (
         <>
             <header>
@@ -24,23 +42,25 @@ function About() {
                     <div className='col-ms col-3'>
                         <div className='_about'>
                             <ul className='aboutSide'>
-                                <li>Mit kínálunk?</li>
-                            </ul>
-                            <ul className='aboutSide'>
-                                <li className='active'>Kik vagyunk mi?</li>
+                                {about.map(i => (
+                                    about.indexOf(i) == active ? <li className='active' onClick={event => select(about.indexOf(i))}>{i.title}</li> : <li onClick={event => select(about.indexOf(i))}>{i.title}</li>
+                                ))}
                             </ul>
                         </div>
                     </div>
                     <div className='col-md'>
                         <div className='about_info'>
                             <div className='about_title'>
-                                <h3>Kik vagyunk mi?</h3>
+                                <h3> {about.map(i => (
+                                    about.indexOf(i) == active ? i.title : ""
+                                ))}</h3>
                             </div>
                             <div className='message'>
                                 <p>
-                                    Üdvözöljük az EuroJet repülőgépes társaság Európában!<br />
 
-                                    Az EuroJet büszkén áll a repülés iránti szenvedélyünkkel és az utasok iránti elkötelezettségünkkel. Az Európai égbolton tündöklő csillagként szállunk magasra, hogy egyedülálló élményeket és kifogástalan szolgáltatást nyújtsunk minden utasunknak.
+                                    {about.map(i => (
+                                        about.indexOf(i) == active ? i.message : ""
+                                    ))}
                                 </p>
                             </div>
                         </div>

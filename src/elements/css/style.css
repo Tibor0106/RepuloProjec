@@ -35,6 +35,7 @@ body {
 .customNav .active {
     font-weight: bold;
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.304);
+    color: #000;
 }
 
 .customNav {
@@ -217,7 +218,6 @@ button {
 .aboutSide li {
     padding: 15px;
     margin-left: -3.4vh;
-    margin-bottom: -15px;
 }
 
 .aboutSide li:hover {
