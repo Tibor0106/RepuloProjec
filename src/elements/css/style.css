@@ -208,3 +208,63 @@ button {
     background: var(--maincolor);
     color: white;
 }
+
+.aboutSide {
+    list-style: none;
+
+}
+
+.aboutSide li {
+    padding: 15px;
+    margin-left: -3.4vh;
+    margin-bottom: -15px;
+}
+
+.aboutSide li:hover {
+    border: 1px solid rgba(0, 0, 0, 0.268);
+    border-radius: 2px;
+    background: rgba(15, 110, 174, 0.6);
+    color: white;
+}
+
+.info2 {
+    z-index: 99;
+    background: #ffffff;
+    margin-top: -10vh;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+
+}
+
+._about {
+    background: #0000000a;
+    margin-left: -1.4vh;
+    text-align: center;
+    margin-bottom: -1.68vh;
+    font-weight: bold;
+    color: var(--maincolor);
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+}
+
+._about .active {
+    background: var(--maincolor);
+    color: white;
+}
+
+.about_info {}
+
+.about_title {
+    margin-top: 4vh;
+    background: var(--maincolor);
+    border-radius: 20px 20% 20px 20%;
+    padding: 20px;
+}
+
+.about_title h3 {
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.about_info .message {
+    margin-top: 4vh;
+    margin-left: 3vh;
+}
