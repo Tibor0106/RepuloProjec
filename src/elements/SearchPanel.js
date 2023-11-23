@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { IoMdAirplane } from "react-icons/io";
 import { FaCar } from "react-icons/fa6";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap'
+import 'bootstrap/dist/js/bootstrap.min.js'
 import { FaHotel } from "react-icons/fa";
 import { motion } from 'framer-motion';
 import { map } from 'jquery';

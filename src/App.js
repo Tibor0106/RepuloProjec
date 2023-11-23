@@ -8,19 +8,21 @@ import NoPage from './elements/NoPage';
 import About from './elements/about';
 import Popup from './elements/Popup';
 import Toast from './elements/Toast';
+import Profile from './elements/Profile'
 
 function App() {
   return (
     <>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/about" element={<About />} />
-        <Route path="*" element={<NoPage />} />
-      </Routes>
-    </BrowserRouter>  
-    </>   
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="*" element={<NoPage />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

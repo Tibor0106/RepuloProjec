@@ -12,7 +12,7 @@ function About() {
 
     useEffect(() => {
         document.title = `EuroJET | Rólunk`;
-        fetch('http://localhost:3500/about/get/all/admin')
+        fetch('http://eurojet.ddns.net:3500/about/get/all/admin')
             .then(response => response.json())
             .then(data => {
                 setAbout(data);
@@ -35,6 +35,14 @@ function About() {
             </header>
 
             <div className='about'>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ delay: 0.1 }}
+                >
+                    <h1 className='text-uppercase'>Rólunk</h1>
+                </motion.div>
 
             </div>
             <div className='container info2'>
