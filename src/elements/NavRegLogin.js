@@ -38,15 +38,15 @@ function LoginReg() {
 
     const checkValidity = (email, username, password) => {
         if (!(email.length > 0 || username.length > 0 || password.length > 0))
-        return false;
+            return false;
 
-    if (!(email.includes('@') && email.includes('.')))
-        return false;
+        if (!(email.includes('@') && email.includes('.')))
+            return false;
 
-    if (!(password.length >= 7))
-        return false;
+        if (!(password.length >= 7))
+            return false;
 
-    return true;
+        return true;
     }
 
     const registerUser = () => {
@@ -57,13 +57,13 @@ function LoginReg() {
         if (!checkValidity(email, username, password))
             return;
 
-        
-            fetch(`http://eurojet.ddns.net:3500/register/${email}/${username}/${password}/admin`).then(res => res.json()).then((response) => {
-            if (response.registered){
+
+        fetch(`http://eurojet.ddns.net:3500/register/${email}/${username}/${password}/admin`).then(res => res.json()).then((response) => {
+            if (response.registered) {
                 loginUser();
             }
             else
-                switch(response.error){
+                switch (response.error) {
                     case "exists":
                         console.log("user already exists!");
                         break;
@@ -71,23 +71,22 @@ function LoginReg() {
                         console.log("master server returned no value. falling back");
                         loginUser();
                         break;
-            }
+                }
         });
     }
 
-    const loginUser = () =>{
+    const loginUser = () => {
         const email = emailRegister.current ? emailRegister.current.value : emailLogin.current.value;
         const password = passwordRegister.current ? passwordRegister.current.value : passwordLogin.current.value;
 
         fetch(`http://eurojet.ddns.net:3500/login/${email}/${password}`).then(res => res.json()).then((response) => {
-            if (response.success)
-            {
+            if (response.success) {
                 setCookie('logindata', `${response.logindata}`);
-                
-                
+
+
             }
             else {
-                
+
                 sendNotification("Sikertelen Bejelentkezés", "Úgy látszik, bejelentkezésed sikertelen.", "bg-danger");
             }
         })
@@ -99,7 +98,7 @@ function LoginReg() {
 
     const loadPage = () => {
         if (cookies.logindata != "undefined" && cookies.logindata != undefined) {
-            if (relogged == false){
+            if (relogged == false) {
                 sendNotification("Sikeres Bejelentkezés", `Üdvözlünk újra, ${cookies.logindata.split('&')[1].split('=')[1]}!`, "bg-info");
                 setRelogged(true);
             }
@@ -107,15 +106,17 @@ function LoginReg() {
                 <>
                     <div>
                         <div className="row">
-                        <div className="col-sm-3">
-                            <img src={profile} width="65%" className={"profileButton"} onClick={() => {window.location = "/profile"}} style={{marginTop: "-0.5vh", marginLeft: "1rem"}}/>
-                        </div>
+                            <div className="col-sm-7 d-flex">
+                                <img src={profile} className={"profileButton"} onClick={() => { window.location = "/profile" }} style={{ marginTop: "-0.5vh", marginLeft: "1rem" }} />
+                                <p className='username'> {cookies.logindata.split('&')[1].split('=')[1]}</p>
+
+                            </div>
                             <div className="col-sm-5">
-                        <button className='btn btn-logout' onClick={event => logout()}>Kijelentkezés</button></div></div>
+                                <button className='btn btn-logout' onClick={event => logout()}>Kijelentkezés</button></div></div>
                         {notificationToast}
                     </div>
-        
-        
+
+
                 </>
             );
         }
@@ -131,10 +132,10 @@ function LoginReg() {
                         {registerPopup}
                         {notificationToast}
                     </div>
-    
-    
+
+
                 </>
-                );
+            );
         }
     }
 
@@ -148,7 +149,7 @@ function LoginReg() {
     }
 
     const sendNotification = (header, body, bgColor) => {
-        setNotificationToast(<ToastE key={makekey(4)} Header={header} Body={body} bgColor={bgColor}/>)
+        setNotificationToast(<ToastE key={makekey(4)} Header={header} Body={body} bgColor={bgColor} />)
     }
 
     const loginContent = () => {
@@ -192,8 +193,8 @@ function LoginReg() {
             </>
         )
     }
-            
-            
+
+
     return (<>
         {loadPage()}
     </>)

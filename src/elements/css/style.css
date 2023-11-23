@@ -43,7 +43,7 @@ body {
 }
 
 .navItems {
-    margin-top: 15px;
+    margin-top: 17px;
 }
 
 .nt {
@@ -194,7 +194,8 @@ button {
     font-weight: bold;
 }
 
-.btn-register {
+.btn-register,
+.btn-logout {
     border: 2px solid var(--maincolor);
     color: black;
     font-weight: bold;
@@ -277,18 +278,24 @@ button {
 
 .profileButton {
     border: 1px solid black;
-    border-radius:500px;
+    border-radius: 50%;
     padding: 1.5vw;
     background-image: url("../pics/profile.svg");
-    background-size:72%;
-    background-repeat:no-repeat;
+    background-size: 50%;
+    background-repeat: no-repeat;
     background-position: center;
+    margin-bottom: 2px;
 }
 
-.profileButton:hover{
-    cursor:pointer;
+.profileButton:hover {
+    cursor: pointer;
 }
 
 .profileButton:active {
-    box-shadow:2px 2px rgb(125, 125, 125, 0.5);
+    box-shadow: 2px 2px rgb(125, 125, 125, 0.5);
+}
+
+.username {
+    margin-left: 1rem;
+    margin-top: 0.5vw;
 }
