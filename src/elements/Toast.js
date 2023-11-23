@@ -25,7 +25,7 @@ function ToastE({Header, Body, bgColor}) {
         }
     })
     return (
-        <div className="toast position-absolute bottom-0 end-0 m-4" role="alert" ref={toastRef}>
+        <div className="toast position-fixed bottom-0 end-0 m-4" role="alert" ref={toastRef}>
             <div className={`toast-header ${bgColor}`}>
                 <strong className="me-auto">{Header}</strong>
                 <small>most</small>
