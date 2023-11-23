@@ -44,10 +44,10 @@ function NoPage() {
                         </div>
                         <div className='_profile'>
                             <div className='p_content mb-2'>
-                                <h4 className='profile_username text-center'>{cookies.logindata.split('&')[1].split('=')[1]}</h4>
+                                <h4 className='profile_username text-center'>{get("username")}</h4>
                                 <p className='fs-3'>
                                     <TfiEmail size={"1.3em"} className='me-3' />
-                                    {cookies.logindata.split('&')[0].split('=')[1]}
+                                    {get("email")}
                                 </p>
 
                             </div>
