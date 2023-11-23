@@ -8,7 +8,9 @@ import p404 from './pics/404.png'
 import { motion } from 'framer-motion';
 import './css/style.css';
 import { Cookies, useCookies } from 'react-cookie';
+import profile from "./pics/profile.svg";
 
+import { TfiEmail } from "react-icons/tfi";
 
 
 function NoPage() {
@@ -18,7 +20,7 @@ function NoPage() {
     });
     const get = (val) => {
         return cookies['logindata'].split('&').find(e => e.includes(val)).split('=')[1];
-    } 
+    }
     return (
         <>
             <header>
@@ -33,7 +35,29 @@ function NoPage() {
                 >
                     <h1 className='text-uppercase'>Profil</h1>
                 </motion.div>
-            <ProfileInfo username={get("username")} email={get("email")}/>
+
+
+                <div className='container info'>
+                    <div className='profile'>
+                        <div className='d-flex justify-content-center kep'>
+                            <img src={profile} />
+                        </div>
+                        <div className='_profile'>
+                            <div className='p_content mb-2'>
+                                <h4 className='profile_username text-center'>{cookies.logindata.split('&')[1].split('=')[1]}</h4>
+                                <p className='fs-3'>
+                                    <TfiEmail size={"1.3em"} className='me-3' />
+                                    {cookies.logindata.split('&')[0].split('=')[1]}
+                                </p>
+
+                            </div>
+                            <div className='input-group mt-3'>
+                                <button className='btn btn-primary form-control'>Ticket nyitása</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
     );
