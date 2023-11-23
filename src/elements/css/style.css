@@ -274,3 +274,21 @@ button {
     margin-top: 4vh;
     margin-left: 3vh;
 }
+
+.profileButton {
+    border: 1px solid black;
+    border-radius:500px;
+    padding: 1.5vw;
+    background-image: url("../pics/profile.svg");
+    background-size:72%;
+    background-repeat:no-repeat;
+    background-position: center;
+}
+
+.profileButton:hover{
+    cursor:pointer;
+}
+
+.profileButton:active {
+    box-shadow:2px 2px rgb(125, 125, 125, 0.5);
+}

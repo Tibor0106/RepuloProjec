@@ -10,6 +10,7 @@ import "./css/style.css";
 import ToastE from './Toast';
 import { Cookies, useCookies } from 'react-cookie';
 import { FaVenusMars } from 'react-icons/fa6';
+import profile from "./pics/profile.svg";
 
 function LoginReg() {
     const [loginPopup, setLoginPopup] = useState(null);
@@ -105,7 +106,12 @@ function LoginReg() {
             return (
                 <>
                     <div>
-                        <button className='btn btn-logout' onClick={event => logout()}>Kijelentkezés</button>
+                        <div className="row">
+                        <div className="col-sm-3">
+                            <img src={profile} width="65%" className={"profileButton"} onClick={() => {window.location = "/profile"}} style={{marginTop: "-0.5vh", marginLeft: "1rem"}}/>
+                        </div>
+                            <div className="col-sm-5">
+                        <button className='btn btn-logout' onClick={event => logout()}>Kijelentkezés</button></div></div>
                         {notificationToast}
                     </div>
         
