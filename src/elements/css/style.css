@@ -103,7 +103,7 @@ body {
 }
 
 .info {
-    z-index: 99;
+    z-index: 98;
     background: #ffffff;
     padding: 30px;
     margin-top: -10vh;
@@ -168,7 +168,7 @@ button {
     background: #ffffff;
     padding: 10px;
     border-radius: 15px;
-    z-index: 99;
+    z-index: 100;
     width: 40%;
 }
 
