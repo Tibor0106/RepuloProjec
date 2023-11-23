@@ -7,6 +7,7 @@ import Contact from './elements/contact';
 import NoPage from './elements/NoPage';
 import About from './elements/about';
 import Popup from './elements/Popup';
+import Toast from './elements/Toast';
 
 function App() {
   return (

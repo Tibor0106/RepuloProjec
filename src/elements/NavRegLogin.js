@@ -7,14 +7,21 @@ import p404 from './pics/404.png'
 import { color } from 'framer-motion';
 import Popup from './Popup';
 import "./css/style.css";
-
+import ToastE from './Toast';
+import { Cookies, useCookies } from 'react-cookie';
+import { FaVenusMars } from 'react-icons/fa6';
 
 function LoginReg() {
     const [loginPopup, setLoginPopup] = useState(null);
     const [registerPopup, setRegisterPopup] = useState(null);
+    const [notificationToast, setNotificationToast] = useState(null);
     const emailRegister = useRef(null);
     const usernameRegister = useRef(null);
     const passwordRegister = useRef(null);
+    const emailLogin = useRef(null);
+    const passwordLogin = useRef(null);
+    var [relogged, setRelogged] = useState(false);
+    const [cookies, setCookie, removeCookie] = useCookies(['logindata']);
     const makekey = (length) => {
         let result = '';
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -51,15 +58,78 @@ function LoginReg() {
 
         
             fetch(`http://eurojet.ddns.net:3500/register/${email}/${username}/${password}/admin`).then(res => res.json()).then((response) => {
-            if (response.registered)
-                console.log("registered!");
+            if (response.registered){
+                loginUser();
+            }
             else
                 switch(response.error){
                     case "exists":
                         console.log("user already exists!");
                         break;
+                    case "noval":
+                        console.log("master server returned no value. falling back");
+                        loginUser();
+                        break;
             }
         });
+    }
+
+    const loginUser = () =>{
+        const email = emailRegister.current ? emailRegister.current.value : emailLogin.current.value;
+        const password = passwordRegister.current ? passwordRegister.current.value : passwordLogin.current.value;
+
+        fetch(`http://eurojet.ddns.net:3500/login/${email}/${password}`).then(res => res.json()).then((response) => {
+            if (response.success)
+            {
+                setCookie('logindata', `${response.logindata}`);
+                
+                
+            }
+            else {
+                
+                sendNotification("Sikertelen Bejelentkezés", "Úgy látszik, bejelentkezésed sikertelen.", "bg-danger");
+            }
+        })
+    }
+
+    const logout = () => {
+        setCookie("logindata", undefined);
+    }
+
+    const loadPage = () => {
+        if (cookies.logindata != "undefined" && cookies.logindata != undefined) {
+            if (relogged == false){
+                sendNotification("Sikeres Bejelentkezés", `Üdvözlünk újra, ${cookies.logindata.split('&')[1].split('=')[1]}!`, "bg-info");
+                setRelogged(true);
+            }
+            return (
+                <>
+                    <div>
+                        <button className='btn btn-logout' onClick={event => logout()}>Kijelentkezés</button>
+                        {notificationToast}
+                    </div>
+        
+        
+                </>
+            );
+        }
+        else {
+            if (relogged == true)
+                setRelogged(false);
+            return (
+                <>
+                    <div>
+                        <button className='btn btn-login' onClick={event => openPopup("login")}>Bejelentkezés</button>
+                        <button className='btn btn-register' onClick={event => openPopup("reg")}>Regisztráció</button>
+                        {loginPopup}
+                        {registerPopup}
+                        {notificationToast}
+                    </div>
+    
+    
+                </>
+                );
+        }
     }
 
     const openPopup = (value) => {
@@ -71,18 +141,22 @@ function LoginReg() {
 
     }
 
+    const sendNotification = (header, body, bgColor) => {
+        setNotificationToast(<ToastE key={makekey(4)} Header={header} Body={body} bgColor={bgColor}/>)
+    }
+
     const loginContent = () => {
         return (
             <>
                 <p className='text-center fs-4'>Bejelentkezés</p>
                 <div className='input-group mb-3'>
-                    <input type='text' className='form-control' placeholder='Felhasználónév' />
+                    <input type='email' className='form-control' placeholder='Email' ref={emailLogin} />
                 </div>
                 <div className='input-group mb-3'>
-                    <input type='password' className='form-control' placeholder='Jelszó' />
+                    <input type='password' className='form-control' placeholder='Jelszó' ref={passwordLogin} />
                 </div>
                 <div className='input-group mb-3'>
-                    <button className='btn btn-primary form-control' >Bejelentkezés</button>
+                    <button className='btn btn-primary form-control' onClick={loginUser}>Bejelentkezés</button>
                 </div>
             </>
         )
@@ -112,20 +186,12 @@ function LoginReg() {
             </>
         )
     }
+            
+            
+    return (<>
+        {loadPage()}
+    </>)
 
-    return (
-        <>
-            <div>
-
-                <button className='btn btn-login' onClick={event => openPopup("login")}>Bejelentkezés</button>
-                <button className='btn btn-register' onClick={event => openPopup("reg")}>Regisztráció</button>
-                {loginPopup}
-                {registerPopup}
-            </div>
-
-
-        </>
-    );
 }
 
 export default LoginReg;

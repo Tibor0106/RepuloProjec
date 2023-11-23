@@ -85,7 +85,7 @@ function Panel() {
     }
     const searchFlight = () => {
         getFlightDestinations(idFrom);
-        fetch(`http://eurojet.ddns.net:3500/searchflight/${idFrom}/${searchToRef.current.value.length == 0 ? -1 : idTo}`)
+        fetch(`http://eurojet.ddns.net:3500/flights/search/${idFrom}/${searchToRef.current.value.length == 0 ? -1 : idTo}`)
             .then(response => response.json())
             .then(data => {
                 setSearchFlightresults(data);

@@ -75,10 +75,13 @@ function Contact() {
                                 transition={{ delay: 0.8 }}
                             >
 
-
-                                <h5>Szívesen hallanánk felőled!</h5>
                                 <h1>Lépj velünk kapcsolatba</h1>
-                                <p>Köszönjük, hogy felkerested weboldalunkat! Ha kérdéseid, észrevételeid vagy javaslataid vannak, örömmel állunk rendelkezésedre. Kérjük, használd az alábbi elérhetőségeket, vagy töltsd ki az alábbi űrl apot, és hamarosan válaszolunk.</p>
+                                <h5>Szívesen hallanánk felőled!</h5>
+                                <p>Köszönjük, hogy felkerested weboldalunkat! Ha kérdéseid, észrevételeid vagy javaslataid vannak, örömmel állunk rendelkezésedre. Kérjük, használd az alábbi elérhetőségeket, vagy használd bal oldalon látható Ticket rendszerünket(felhasználói fiók szükséges) hogy felvedd velünk a kapcsolatot!</p>
+                                <ul>
+                                    <li>E-Mail: <b><a href="mailto:EuroJetPRJ@outlook.com">EuroJetPRJ@outlook.com</a></b></li>
+                                    <li>Telefonszám: <b><a href="tel:36303926004">+36303926004</a></b></li>
+                                </ul>
                                 <a href="">Kapcsolat</a>
                             </motion.div>
                         </div>

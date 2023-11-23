@@ -200,6 +200,12 @@ button {
     font-weight: bold;
 }
 
+.btn-register {
+    border: 2px solid var(--maincolor);
+    color: black;
+    font-weight: bold;
+}
+
 .btn-login:hover {
     background: #005b98;
     color: white;
