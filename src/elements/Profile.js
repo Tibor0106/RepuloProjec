@@ -35,29 +35,28 @@ function NoPage() {
                 >
                     <h1 className='text-uppercase'>Profil</h1>
                 </motion.div>
+            </div>
 
-
-                <div className='container info'>
-                    <div className='profile'>
-                        <div className='d-flex justify-content-center kep'>
-                            <div className="container d-flex justify-content-center profileImageRadius">
+            <div className='container info'>
+                <div className='profile'>
+                    <div className='d-flex justify-content-center kep'>
+                        <div className="container d-flex justify-content-center profileImageRadius">
                             <img src={profile} className="profileImage" />
-                            </div>
                         </div>
-                        <div className='_profile'>
-                            <div className='p_content mb-2'>
-                                <h5 className='profile_username text-center'>{get("username")}</h5>
-                                <p className='fs-3'>
-                                    <TfiEmail size={"1.3em"} className='me-3' />
-                                    {get("email")}
-                                </p>
-
-                            </div>
-                            <div className='input-group mt-3'>
-                                <button className='btn btn-primary form-control'>Ticket nyitása</button>
-                            </div>
+                    </div>
+                    <div className='_profile'>
+                        <div className='p_content mb-2'>
+                            <h5 className='profile_username text-center'>{get("username")}</h5>
+                            <p className='fs-3'>
+                                <TfiEmail size={"1.3em"} className='me-3' />
+                                {get("email")}
+                            </p>
 
                         </div>
+                        <div className='input-group mt-3'>
+                            <button className='btn btn-primary form-control'>Ticket nyitása</button>
+                        </div>
+
                     </div>
                 </div>
             </div>

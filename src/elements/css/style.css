@@ -303,32 +303,27 @@ button {
 .profileImage {
     width: 5vw;
     position: absolute;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 }
 
 .profileImageRadius {
-    position: absolute;
-    width:10vw;
+    width: 10vw;
     align-items: center;
-    height:10vw;
+    height: 10vw;
     background-color: white;
     border-radius: 500px;
 }
-div.container.info {
-    margin-top: 3vw;
-    position: absolute;
-    margin-left:6.8vw;
-    width:90%;
-}
+
 ._profile {
-    margin-top:15.5vh;
     background-image: linear-gradient(rgb(245, 245, 245, 1), rgb(250, 250, 250, 1));
-    padding:1vw;
-    border-radius:15px;
-}
-._profile ._content {
-    margin-top:2vh;
+    padding: 1vw;
+    border-radius: 15px;
+    margin-top: -50px;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 }
 
+
+
 .profile_username {
-    margin-top:2vw;
+    margin-top: 2vw;
 }
