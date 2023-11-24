@@ -6,6 +6,8 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 import { FaHotel } from "react-icons/fa";
 import { motion } from 'framer-motion';
 import { event, map } from 'jquery';
+import Popup from './Popup';
+import VisaMasterCard from "./pics/visa_X_master.png";
 
 function Panel() {
     const [destinations, setDestinations] = useState([]);
@@ -19,6 +21,7 @@ function Panel() {
     const searchToRef = useRef(null);
     const [searchCompleteFrom, setSearchCompleteFrom] = useState(null);
     const [searchCompleteTo, setSearchCompleteTo] = useState(null);
+    const [foglalasPopup, setFoglalasPopup] = useState(null);
 
     const [fromPlace, setFromTo] = useState("");
     const [toDests, setToDests] = useState([]);
@@ -220,7 +223,7 @@ function Panel() {
 
                     <p className='price text-center mt-4'>{seperator(data.price)} FT</p>
                     <div className="col-sm-2 input-group" style={{ marginTop: '35px' }}>
-                        <button className="btn btn-primary form-control">Foglalás</button>
+                        <button className="btn btn-primary form-control" onClick={event => foglalas(data.destinationId)}>Foglalás</button>
                     </div>
                 </div>
 
@@ -229,6 +232,57 @@ function Panel() {
             </motion.div>
 
         )
+    }
+    const makekey = (length) => {
+        let result = '';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        let counter = 0;
+        while (counter < length) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            counter += 1;
+        }
+        return result;
+    }
+    const foglalas = (id) => {
+        const content = () => {
+            return (
+                <div>
+                    <div className="row">
+                        <div className="col-md">
+                            <div className="input-group mb-3">
+                                <input type="text" className="form-control" placeholder="Vezetéknév" />
+                            </div>
+                        </div>
+                        <div className="col-md">
+                            <div className="input-group mb-3">
+                                <input type="text" className="form-control" placeholder="Keresztnév" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md">
+                            <div className="input-group mb-3">
+                                <input type="email" className="form-control" placeholder="E-mail" />
+                            </div>
+                        </div>
+                        <div className="col-md">
+                            <div className="input-group mb-3">
+                                <input type="number" className="form-control" placeholder="Telefonszám" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="d-flex justify-content-center">
+                        <img src={VisaMasterCard} className="masterCard" alt="vót nincs" />
+                    </div>
+                    <div className="input-group mt-3">
+                        <button className="btn btn-primary form-control">Lefoglalom</button>
+                    </div>
+
+                </div>
+            )
+        }
+        setFoglalasPopup(<Popup title="Fogalálás" key={makekey(5)} Content={content} />)
     }
     const NincsTalalat = () => {
         return (
@@ -301,7 +355,9 @@ function Panel() {
 
                 </div>
             </div >
+            {foglalasPopup}
         </div>
+
     );
 }
 export default Panel;
