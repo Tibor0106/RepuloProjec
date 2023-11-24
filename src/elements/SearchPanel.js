@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js'
 import { FaHotel } from "react-icons/fa";
 import { motion } from 'framer-motion';
-import { map } from 'jquery';
+import { event, map } from 'jquery';
 
 function Panel() {
     const [destinations, setDestinations] = useState([]);
@@ -17,6 +17,8 @@ function Panel() {
     const searchFromRef = useRef(null);
     const [searchFlightresults, setSearchFlightresults] = useState([]);
     const searchToRef = useRef(null);
+    const [searchCompleteFrom, setSearchCompleteFrom] = useState(null);
+    const [searchCompleteTo, setSearchCompleteTo] = useState(null);
 
     const [fromPlace, setFromTo] = useState("");
     const [toDests, setToDests] = useState([]);
@@ -31,6 +33,10 @@ function Panel() {
                 console.error('Hiba a blog üzenetek lekérdezése közben:', error);
                 setDestinations([]);
             });
+        document.body.addEventListener('click', function () {
+            setSearchCompleteFrom(null);
+            setSearchCompleteTo(null);
+        });
 
     }, []);
 
@@ -106,6 +112,75 @@ function Panel() {
                 console.error('Hiba az adatok lekérdezése közben! => :', error);
                 setToDests([]);
             });
+    }
+
+    const searchOnInput = (v) => {
+        if (v == "honnan") {
+            const value = searchFromRef.current.value;
+            if (value.length === 0) {
+                setSearchResultsFrom([]);
+                return;
+            }
+            setSearchActive(false);
+            setSearchFlightresults([])
+            var items = [];
+            destinations.forEach(i => {
+                if (i.destinationName.toLowerCase().includes(value.toLowerCase())) {
+                    items.push(i);
+                }
+            })
+
+            setSearchResultsFrom(items);
+            setSearchCompleteFrom(searchCompleteList);
+
+        } else if (v == "hova") {
+            const value = searchToRef.current.value;
+            if (value.length === 0) {
+                setSearchResultsTo([]);
+                return;
+            }
+            setSearchActive(false);
+            setSearchFlightresults([])
+            var items = [];
+            destinations.forEach(i => {
+                if (i.destinationName.toLowerCase().includes(value.toLowerCase())) {
+                    items.push(i);
+                }
+            })
+
+            setSearchResultsTo(items);
+            setSearchCompleteTo(searchCompleteListTo);
+        }
+    }
+    const searchCompleteList = () => {
+        return (
+            <div className="completer">
+                {searchResultsFrom.map(i => (
+                    <p key={i.destinationName}>
+                        <a className="dropdown-item" onClick={event => select(i.destinationId, i.destinationName, "from")}>
+                            {i.destinationName}
+                        </a>
+                    </p>
+                ))}
+                {searchResultsFrom.length === 0 ? "Nincs találat!" : ""}
+            </div>
+
+        )
+    }
+    const searchCompleteListTo = () => {
+        return (
+            <div className="completer">
+                {searchResultsTo.map(i => (
+                    <p key={i.destinationName}>
+                        <a className="dropdown-item" onClick={event => select(i.destinationId, i.destinationName, "to")}>
+                            {i.destinationName}
+                        </a>
+                    </p>
+                ))}
+                {searchResultsTo.length === 0 ? "Nincs találat!" : ""}
+            </div>
+
+        )
     }
     const FlightResultCard = ({ data }) => {
         return (
@@ -197,47 +272,18 @@ function Panel() {
                     <div className='row'>
                         <div className='col-md'>
                             <label className='mt-5 text-bold'>Honnan</label>
-                            <div className='input-group mb-3'>
-                                <input type='text' className='form-control dropdown-toggle' onInput={searchFrom} data-bs-toggle="dropdown" aria-expanded="false" ref={searchFromRef} />
-                                <ul className="dropdown-menu list p-2">
-
-                                    {searchResultsFrom.map(i => (
-                                        <motion.div
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            exit={{ opacity: 0 }}
-                                            transition={{ delay: searchResultsFrom.indexOf(i) / 15 }}
-                                        >
-                                            <li key={i.destinationName}><a className="dropdown-item" onClick={event => select(i.destinationId, i.destinationName, "from")}>{i.destinationName}</a></li>
-                                        </motion.div>
-
-                                    ))}
-
-                                    {searchResultsFrom.length === 0 ? "Kezdj el gépelni a kereséshez!" : ""}
-                                </ul>
+                            <div className='input-group'>
+                                <input type='text' className='form-control' onInput={event => searchOnInput('honnan')} ref={searchFromRef} />
                             </div>
+                            {searchCompleteFrom}
                         </div>
                         <div className='col-md'>
                             <label className='mt-5 text-bold'>Hova</label>
                             <div className='input-group mb-3'>
-                                <input type='text' className='form-control dropdown-toggle' onInput={searchTo} data-bs-toggle="dropdown" aria-expanded="false" ref={searchToRef} />
-                                <ul className="dropdown-menu p-2 list">
-
-                                    {searchResultsTo.map(i => (
-                                        <motion.div
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            exit={{ opacity: 0 }}
-                                            transition={{ delay: searchResultsTo.indexOf(i) / 15 }}
-                                        >
-                                            <li key={i.destinationName}><a className="dropdown-item" onClick={event => select(i.destinationId, i.destinationName, "to")}>{i.destinationName}</a></li>
-                                        </motion.div>
-
-                                    ))}
-
-                                    {searchResultsTo.length === 0 ? "Kezdj el gépelni a kereséshez!" : ""}
-                                </ul>
+                                <input type='text' className='form-control' onInput={event => searchOnInput('hova')} ref={searchToRef} />
                             </div>
+                            {searchCompleteTo}
+
                         </div>
                     </div>
 
