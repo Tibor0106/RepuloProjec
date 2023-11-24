@@ -122,6 +122,7 @@ function Panel() {
             const value = searchFromRef.current.value;
             if (value.length === 0) {
                 setSearchResultsFrom([]);
+                setSearchCompleteFrom(null)
                 return;
             }
             setSearchActive(false);
@@ -140,6 +141,7 @@ function Panel() {
             const value = searchToRef.current.value;
             if (value.length === 0) {
                 setSearchResultsTo([]);
+                setSearchCompleteTo(null)
                 return;
             }
             setSearchActive(false);
@@ -158,12 +160,21 @@ function Panel() {
     const searchCompleteList = () => {
         return (
             <div className="completer">
+
                 {searchResultsFrom.map(i => (
-                    <p key={i.destinationName}>
-                        <a className="dropdown-item" onClick={event => select(i.destinationId, i.destinationName, "from")}>
-                            {i.destinationName}
-                        </a>
-                    </p>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ delay: searchResultsFrom.indexOf(i) / 15 }}
+                    >
+                        <p key={i.destinationName}>
+                            <a className="dropdown-item" onClick={event => select(i.destinationId, i.destinationName, "from")}>
+                                {i.destinationName}
+                            </a>
+                        </p>
+                    </motion.div>
+
                 ))}
                 {searchResultsFrom.length === 0 ? "Nincs találat!" : ""}
             </div>
@@ -174,11 +185,19 @@ function Panel() {
         return (
             <div className="completer">
                 {searchResultsTo.map(i => (
-                    <p key={i.destinationName}>
-                        <a className="dropdown-item" onClick={event => select(i.destinationId, i.destinationName, "to")}>
-                            {i.destinationName}
-                        </a>
-                    </p>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ delay: searchResultsTo.indexOf(i) / 15 }}
+                    >
+                        <p key={i.destinationName}>
+                            <a className="dropdown-item" onClick={event => select(i.destinationId, i.destinationName, "to")}>
+                                {i.destinationName}
+                            </a>
+                        </p>
+                    </motion.div>
+
                 ))}
                 {searchResultsTo.length === 0 ? "Nincs találat!" : ""}
             </div>

@@ -27,6 +27,17 @@ function About() {
     const select = (id) => {
         setActive(id);
     }
+    const makekey = (length) => {
+        let result = '';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        let counter = 0;
+        while (counter < length) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            counter += 1;
+        }
+        return result;
+    }
 
     return (
         <>
@@ -51,7 +62,15 @@ function About() {
                         <div className='_about'>
                             <ul className='aboutSide'>
                                 {about.map(i => (
-                                    about.indexOf(i) == active ? <li className='active' onClick={event => select(about.indexOf(i))}>{i.title}</li> : <li onClick={event => select(about.indexOf(i))}>{i.title}</li>
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ delay: about.indexOf(i) / 10 }}
+                                    >
+                                        {about.indexOf(i) == active ? <li className='active' onClick={event => select(about.indexOf(i))}>{i.title}</li> : <li onClick={event => select(about.indexOf(i))}>{i.title}</li>}
+                                    </motion.div>
+
                                 ))}
                             </ul>
                         </div>
@@ -60,14 +79,32 @@ function About() {
                         <div className='about_info'>
                             <div className='about_title'>
                                 <h3> {about.map(i => (
-                                    about.indexOf(i) == active ? i.title : ""
+                                    <motion.div
+                                        key={makekey(3)}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ delay: 0.2 }}
+                                    >
+                                        {about.indexOf(i) == active ? <p>{i.title}</p> : ""}
+                                    </motion.div>
+
                                 ))}</h3>
                             </div>
                             <div className='message'>
                                 <p>
 
                                     {about.map(i => (
-                                        about.indexOf(i) == active ? i.message : ""
+                                        <motion.div
+                                            key={makekey(3)}
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            transition={{ delay: 0.4 }}
+                                        >
+                                            {about.indexOf(i) == active ? <p>{i.message}</p> : ""}
+                                        </motion.div>
+
                                     ))}
                                 </p>
                             </div>
