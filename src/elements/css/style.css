@@ -103,7 +103,7 @@ body {
 }
 
 .info {
-    z-index: 99;
+    z-index: 98;
     background: #ffffff;
     padding: 30px;
     margin-top: -10vh;
@@ -168,7 +168,7 @@ button {
     background: #ffffff;
     padding: 10px;
     border-radius: 15px;
-    z-index: 99;
+    z-index: 100;
     width: 40%;
 }
 
@@ -298,4 +298,37 @@ button {
 .username {
     margin-left: 1rem;
     margin-top: 0.5vw;
+}
+
+.profileImage {
+    width: 5vw;
+    position: absolute;
+}
+
+.profileImageRadius {
+    position: absolute;
+    width:10vw;
+    align-items: center;
+    height:10vw;
+    background-color: white;
+    border-radius: 500px;
+}
+div.container.info {
+    margin-top: 3vw;
+    position: absolute;
+    margin-left:6.8vw;
+    width:90%;
+}
+._profile {
+    margin-top:15.5vh;
+    background-image: linear-gradient(rgb(245, 245, 245, 1), rgb(250, 250, 250, 1));
+    padding:1vw;
+    border-radius:15px;
+}
+._profile ._content {
+    margin-top:2vh;
+}
+
+.profile_username {
+    margin-top:2vw;
 }

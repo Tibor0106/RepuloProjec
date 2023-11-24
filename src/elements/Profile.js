@@ -40,11 +40,13 @@ function NoPage() {
                 <div className='container info'>
                     <div className='profile'>
                         <div className='d-flex justify-content-center kep'>
-                            <img src={profile} />
+                            <div className="container d-flex justify-content-center profileImageRadius">
+                            <img src={profile} className="profileImage" />
+                            </div>
                         </div>
                         <div className='_profile'>
                             <div className='p_content mb-2'>
-                                <h4 className='profile_username text-center'>{get("username")}</h4>
+                                <h5 className='profile_username text-center'>{get("username")}</h5>
                                 <p className='fs-3'>
                                     <TfiEmail size={"1.3em"} className='me-3' />
                                     {get("email")}
