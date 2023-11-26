@@ -315,7 +315,7 @@ function Panel() {
         var _phoneNumber = phoneNumber.current.value;
 
         var fullName = _firstName + " " + _lastName;
-        fetch(`http://localhost:3500/foglal/${fullName}/${_email}/${_phoneNumber}/${id}/admin`)
+        fetch(`http://eurojet.ddns.net:3500/foglal/${fullName}/${_email}/${_phoneNumber}/${id}/admin`)
             .then(data => {
 
             })
