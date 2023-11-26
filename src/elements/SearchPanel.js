@@ -22,9 +22,14 @@ function Panel() {
     const [searchCompleteFrom, setSearchCompleteFrom] = useState(null);
     const [searchCompleteTo, setSearchCompleteTo] = useState(null);
     const [foglalasPopup, setFoglalasPopup] = useState(null);
-
+    const [foglalasId, setFoglalasId] = useState(-1);
     const [fromPlace, setFromTo] = useState("");
     const [toDests, setToDests] = useState([]);
+
+    const firstName = useRef(null);
+    const lastName = useRef(null);
+    const email = useRef(null);
+    const phoneNumber = useRef(null);
     useEffect(() => {
         document.title = `EuroJET`;
         fetch('http://eurojet.ddns.net:3500/destinations')
@@ -264,30 +269,30 @@ function Panel() {
         return result;
     }
     const foglalas = (id) => {
-        const content = () => {
+        const content = (_id) => {
             return (
                 <div>
                     <div className="row">
                         <div className="col-md">
                             <div className="input-group mb-3">
-                                <input type="text" className="form-control" placeholder="Vezetéknév" />
+                                <input type="text" className="form-control" placeholder="Vezetéknév" ref={firstName} />
                             </div>
                         </div>
                         <div className="col-md">
                             <div className="input-group mb-3">
-                                <input type="text" className="form-control" placeholder="Keresztnév" />
+                                <input type="text" className="form-control" placeholder="Keresztnév" ref={lastName} />
                             </div>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md">
                             <div className="input-group mb-3">
-                                <input type="email" className="form-control" placeholder="E-mail" />
+                                <input type="text" className="form-control" placeholder="E-mail" ref={email} />
                             </div>
                         </div>
                         <div className="col-md">
                             <div className="input-group mb-3">
-                                <input type="number" className="form-control" placeholder="Telefonszám" />
+                                <input type="number" className="form-control" placeholder="Telefonszám" ref={phoneNumber} />
                             </div>
                         </div>
                     </div>
@@ -295,13 +300,30 @@ function Panel() {
                         <img src={VisaMasterCard} className="masterCard" alt="vót nincs" />
                     </div>
                     <div className="input-group mt-3">
-                        <button className="btn btn-primary form-control">Lefoglalom</button>
+                        <button className="btn btn-primary form-control" onClick={event => _Lefoglal(_id)}>Lefoglalom</button>
                     </div>
 
                 </div>
             )
         }
-        setFoglalasPopup(<Popup title="Fogalálás" key={makekey(5)} Content={content} />)
+        setFoglalasPopup(<Popup title="Fogalálás" key={makekey(5)} Content={() => content(id)} />)
+    }
+    const _Lefoglal = (id) => {
+        var _firstName = firstName.current.value;
+        var _lastName = lastName.current.value;
+        var _email = email.current.value;
+        var _phoneNumber = phoneNumber.current.value;
+
+        var fullName = _firstName + " " + _lastName;
+        fetch(`http://localhost:3500/foglal/${fullName}/${_email}/${_phoneNumber}/${id}/admin`)
+            .then(data => {
+
+            })
+            .catch(error => {
+                console.log('Hiba az adatok lekérdezése közben! => :', error);
+            });
+        alert("Sikeres foglalás");
+
     }
     const NincsTalalat = () => {
         return (
