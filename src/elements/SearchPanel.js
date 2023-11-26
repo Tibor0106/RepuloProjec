@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import { event, map } from 'jquery';
 import Popup from './Popup';
 import VisaMasterCard from "./pics/visa_X_master.png";
+import { Cookies, useCookies } from 'react-cookie';
 
 function Panel() {
     const [destinations, setDestinations] = useState([]);
@@ -18,20 +19,25 @@ function Panel() {
     const [idTo, setIdTo] = useState(-1);
     const searchFromRef = useRef(null);
     const [searchFlightresults, setSearchFlightresults] = useState([]);
+    const [rentCarResults, setRentCarResults] = useState([]);
     const searchToRef = useRef(null);
     const [searchCompleteFrom, setSearchCompleteFrom] = useState(null);
     const [searchCompleteTo, setSearchCompleteTo] = useState(null);
     const [foglalasPopup, setFoglalasPopup] = useState(null);
-    const [foglalasId, setFoglalasId] = useState(-1);
-    const [fromPlace, setFromTo] = useState("");
     const [toDests, setToDests] = useState([]);
+    const [cookies, setCookie, removeCookie] = useCookies(['logindata']);
+    const [currentTab, setCurrentTab] = useState(-1);
 
+    const get = (val) => {
+        return cookies['logindata'].split('&').find(e => e.includes(val)).split('=')[1];
+    }
     const firstName = useRef(null);
     const lastName = useRef(null);
     const email = useRef(null);
     const phoneNumber = useRef(null);
     useEffect(() => {
         document.title = `EuroJET`;
+        setCurrentTab(0);
         fetch('http://eurojet.ddns.net:3500/destinations')
             .then(response => response.json())
             .then(data => {
@@ -58,40 +64,7 @@ function Panel() {
         }
 
     }
-
-    const searchFrom = () => {
-        const value = searchFromRef.current.value;
-        if (value.length === 0) {
-            setSearchResultsFrom([]);
-            return;
-        }
-        setSearchActive(false);
-        setSearchFlightresults([])
-        var items = [];
-        destinations.forEach(i => {
-            if (i.destinationName.toLowerCase().includes(value.toLowerCase())) {
-                items.push(i);
-            }
-        })
-        setSearchResultsFrom(items);
-    }
-
-    const searchTo = () => {
-        const value = searchToRef.current.value;
-        if (value.length === 0) {
-            setSearchResultsTo([]);
-            return;
-        }
-        setSearchActive(false);
-        setSearchFlightresults([])
-        var items = [];
-        destinations.forEach(i => {
-            if (i.destinationName.toLowerCase().includes(value.toLowerCase())) {
-                items.push(i);
-            }
-        })
-        setSearchResultsTo(items);
-    }
+    
     function seperator(input) {
         let nums = input.toString().replace('\.\g');
         if (!nums || nums.endsWith('.')) return;
@@ -102,12 +75,20 @@ function Panel() {
         fetch(`http://eurojet.ddns.net:3500/flights/search/${idFrom}/${searchToRef.current.value.length == 0 ? -1 : idTo}`)
             .then(response => response.json())
             .then(data => {
+                console.log(data);
                 setSearchFlightresults(data);
                 setSearchActive(true);
             })
             .catch(error => {
                 console.error('Hiba az adatok lekérdezése közben! => :', error);
                 setDestinations([]);
+            });
+    }
+    const getCars = () => {
+        fetch(`http://eurojet.ddns.net:3500/cars/get`)
+            .then(response => response.json())
+            .then(data => {
+                setRentCarResults(data);
             });
     }
     const getFlightDestinations = (id) => {
@@ -257,6 +238,41 @@ function Panel() {
 
         )
     }
+    const RentCarResultCard = ({ data }) => {
+        return (
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: rentCarResults.indexOf(data) / 5 }}
+            >
+                <div className="flight-card mb-3">
+                    <div className="row">
+                        <div className="mt-3 col-sm-2 ">
+                            <label for="">ÉVJÁRAT</label>
+                            <p className="ms-3">{data.carmake}</p>
+                            <label for="">MÁRKA</label>
+                            <p className="ms-3">{data.carbrand}</p>
+                            <label for="">MODEL</label>
+                            <p className="ms-3">{data.carmodel}</p>
+                            <label for="">ÜLÉS SZÁM</label>
+                            <p className="ms-3">{data.carseats}</p>
+                        </div>
+
+                    </div>
+
+                    <p className='price text-center mt-4'>{seperator(data.carprice)} FT</p>
+                    <div className="col-sm-2 input-group" style={{ marginTop: '35px' }}>
+                        <button className="btn btn-primary form-control" onClick={event => kocsifoglalas(0)}>Bérlés</button>
+                    </div>
+                </div>
+
+
+
+            </motion.div>
+
+        )
+    }
     const makekey = (length) => {
         let result = '';
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -287,7 +303,7 @@ function Panel() {
                     <div className="row">
                         <div className="col-md">
                             <div className="input-group mb-3">
-                                <input type="text" className="form-control" placeholder="E-mail" ref={email} />
+                                <input type="text" className="form-control" placeholder="E-mail" ref={email} value={cookies['logindata'] ? get("email") : ""} />
                             </div>
                         </div>
                         <div className="col-md">
@@ -301,6 +317,46 @@ function Panel() {
                     </div>
                     <div className="input-group mt-3">
                         <button className="btn btn-primary form-control" onClick={event => _Lefoglal(_id)}>Lefoglalom</button>
+                    </div>
+
+                </div>
+            )
+        }
+        setFoglalasPopup(<Popup title="Fogalálás" key={makekey(5)} Content={() => content(id)} />)
+    }
+    const kocsifoglalas = (id) => {
+        const content = (_id) => {
+            return (
+                <div>
+                    <div className="row">
+                        <div className="col-md">
+                            <div className="input-group mb-3">
+                                <input type="text" className="form-control" placeholder="Vezetéknév" ref={firstName} />
+                            </div>
+                        </div>
+                        <div className="col-md">
+                            <div className="input-group mb-3">
+                                <input type="text" className="form-control" placeholder="Keresztnév" ref={lastName} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md">
+                            <div className="input-group mb-3">
+                                <input type="text" className="form-control" placeholder="E-mail" ref={email} value={cookies['logindata'] ? get("email") : ""} />
+                            </div>
+                        </div>
+                        <div className="col-md">
+                            <div className="input-group mb-3">
+                                <input type="number" className="form-control" placeholder="Telefonszám" ref={phoneNumber} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="d-flex justify-content-center">
+                        <img src={VisaMasterCard} className="masterCard" alt="vót nincs" />
+                    </div>
+                    <div className="input-group mt-3">
+                        <button className="btn btn-primary form-control" onClick={event => _kocsifoglalas(_id)}>Kibérlem</button>
                     </div>
 
                 </div>
@@ -325,6 +381,23 @@ function Panel() {
         alert("Sikeres foglalás");
 
     }
+    const _kocsifoglalas = (id) => {
+        var _firstName = firstName.current.value;
+        var _lastName = lastName.current.value;
+        var _email = email.current.value;
+        var _phoneNumber = phoneNumber.current.value;
+
+        var fullName = _firstName + " " + _lastName;
+        fetch(`http://eurojet.ddns.net:3500/kocsifoglal/${fullName}/${_email}/${_phoneNumber}/${id}/admin`)
+            .then(data => {
+
+            })
+            .catch(error => {
+                console.log('Hiba az adatok lekérdezése közben! => :', error);
+            });
+        alert("Sikeres foglalás");
+
+    }
     const NincsTalalat = () => {
         return (
             <div className="alert alert-warning" role="alert">
@@ -332,36 +405,12 @@ function Panel() {
             </div>
         )
     }
-    return (
-        <div className='searchPanel'>
-            <ul className="nav nav-tabs" id="myTab" role="tablist">
-                <li className="nav-item" role="presentation">
-                    <button className="nav-link active fs-4" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
-                        <div className='d-flex'>
-                            <IoMdAirplane size={40} />
-                            <span className='ms-3'>Járataink</span>
-                        </div>
-                    </button>
-                </li>
-                <li className="nav-item" role="presentation">
-                    <button className="nav-link fs-4" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">
-
-                        <div className='d-flex'>
-                            <FaCar size={40} />
-                            <span className='ms-3'>Autóbérlés</span>
-                        </div>
-                    </button>
-                </li>
-                <li className="nav-item" role="presentation">
-                    <button className="nav-link fs-4" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">
-                        <div className='d-flex'>
-                            <FaHotel size={40} />
-                            <span className='ms-3'>
-                                Hotel</span>
-                        </div>
-                    </button>
-                </li>
-            </ul>
+    const loadTabs = () => {
+        console.log(currentTab);
+        if (currentTab === 0)
+        {
+            return (
+                <>
             <div className="tab-content" id="myTabContent">
                 <div className="tab-pane fade show active border-1" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabIndex="0">
                     <div className='row'>
@@ -397,8 +446,71 @@ function Panel() {
                 </div>
             </div >
             {foglalasPopup}
-        </div>
+            </>
+            );
+        }
+        else if(currentTab === 1)
+        {
+            getCars();
+            return (
+                <>
+        <div className="searchPanel">
+            <div className="tab-content" id="myTabContent">
+                <div className="tab-pane fade show active border-1" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabIndex="0">
+                    {
+                        rentCarResults.map(i => (
+                            console.log(JSON.parse(i.carInfo).carbrand),
+                            <RentCarResultCard data={JSON.parse(i.carInfo)}></RentCarResultCard>
 
+                        ))
+
+                    }
+                    {rentCarResults.length == 0 && searchActive ? <NincsTalalat /> : ''}
+
+                </div>
+            </div >
+            {foglalasPopup}
+        </div></>
+            )
+        }
+        else {
+            return (<></>)
+        }
+    }
+    return (<>
+    
+        <div className='searchPanel'>
+                <ul className="nav nav-tabs" id="myTab" role="tablist">
+                    <li className="nav-item" role="presentation">
+                        <button className="nav-link active fs-4" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
+                            <div className='d-flex'>
+                                <IoMdAirplane size={40} />
+                                <span className='ms-3' onClick={() => {setCurrentTab(0)}}>Járataink</span>
+                            </div>
+                        </button>
+                    </li>
+                    <li className="nav-item" role="presentation">
+                        <button className="nav-link fs-4" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">
+
+                            <div className='d-flex'>
+                                <FaCar size={40} />
+                                <span className='ms-3' onClick={() => {setCurrentTab(1)}}>Autóbérlés</span>
+                            </div>
+                        </button>
+                    </li>
+                    <li className="nav-item" role="presentation">
+                        <button className="nav-link fs-4" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">
+                            <div className='d-flex'>
+                                <FaHotel size={40} />
+                                <span className='ms-3' onClick={() => {setCurrentTab(2)}}>
+                                    Hotel</span>
+                            </div>
+                        </button>
+                    </li>
+                </ul>
+        {loadTabs()}
+        </div>
+        </>
     );
 }
 export default Panel;
