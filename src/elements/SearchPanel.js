@@ -264,7 +264,7 @@ function Panel() {
 
                     <p className='price text-center mt-4'>{seperator(data.carprice)} FT</p>
                     <div className="col-sm-2 input-group" style={{ marginTop: '35px' }}>
-                        <button className="btn btn-primary form-control" onClick={event => kocsifoglalas(0)}>Bérlés</button>
+                        <button className="btn btn-primary form-control" onClick={(event) => kocsifoglalas(0)}>Bérlés</button>
                     </div>
                 </div>
 
