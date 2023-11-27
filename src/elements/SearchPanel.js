@@ -27,6 +27,7 @@ function Panel() {
     const [toDests, setToDests] = useState([]);
     const [cookies, setCookie, removeCookie] = useCookies(['logindata']);
     const [currentTab, setCurrentTab] = useState(-1);
+    const [setTab, setSetTab] = useState(false);
 
     const get = (val) => {
         return cookies['logindata'].split('&').find(e => e.includes(val)).split('=')[1];
@@ -37,6 +38,8 @@ function Panel() {
     const phoneNumber = useRef(null);
     useEffect(() => {
         document.title = `EuroJET`;
+        if (rentCarResults)
+            getCars();
         setCurrentTab(0);
         fetch('http://eurojet.ddns.net:3500/destinations')
             .then(response => response.json())
@@ -75,7 +78,6 @@ function Panel() {
         fetch(`http://eurojet.ddns.net:3500/flights/search/${idFrom}/${searchToRef.current.value.length == 0 ? -1 : idTo}`)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 setSearchFlightresults(data);
                 setSearchActive(true);
             })
@@ -208,19 +210,19 @@ function Panel() {
                             </svg>
                         </div>
                         <div className="mt-3 col-sm-2 ">
-                            <label for=""> HONNAN:</label>
+                            <label> HONNAN:</label>
                             <p className="ms-3">{searchFromRef.current.value}</p>
                         </div>
                         <div className="mt-3 col-sm-2">
-                            <label for=""> HOVA:</label>
+                            <label> HOVA:</label>
                             <p className="ms-3">{toDests.find(dest => dest.destinationId === data.destinationId).destinationName}</p>
                         </div>
                         <div className="mt-3 col-sm-2">
-                            <label for=""> INDULÁS:</label>
+                            <label> INDULÁS:</label>
                             <p className="ms-3">{data.departureTime}</p>
                         </div>
                         <div className="mt-3 col-sm-2">
-                            <label for=""> ÉRKEZÉS:</label>
+                            <label> ÉRKEZÉS:</label>
                             <p className="ms-3">{data.arrivalTime}</p>
                         </div>
 
@@ -244,18 +246,17 @@ function Panel() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ delay: rentCarResults.indexOf(data) / 5 }}
             >
                 <div className="flight-card mb-3">
                     <div className="row">
                         <div className="mt-3 col-sm-2 ">
-                            <label for="">ÉVJÁRAT</label>
+                            <label>ÉVJÁRAT</label>
                             <p className="ms-3">{data.carmake}</p>
-                            <label for="">MÁRKA</label>
+                            <label>MÁRKA</label>
                             <p className="ms-3">{data.carbrand}</p>
-                            <label for="">MODEL</label>
+                            <label>MODEL</label>
                             <p className="ms-3">{data.carmodel}</p>
-                            <label for="">ÜLÉS SZÁM</label>
+                            <label>ÜLÉS SZÁM</label>
                             <p className="ms-3">{data.carseats}</p>
                         </div>
 
@@ -451,7 +452,6 @@ function Panel() {
         }
         else if(currentTab === 1)
         {
-            getCars();
             return (
                 <>
         <div className="searchPanel">
@@ -459,7 +459,6 @@ function Panel() {
                 <div className="tab-pane fade show active border-1" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabIndex="0">
                     {
                         rentCarResults.map(i => (
-                            console.log(JSON.parse(i.carInfo).carbrand),
                             <RentCarResultCard data={JSON.parse(i.carInfo)}></RentCarResultCard>
 
                         ))
