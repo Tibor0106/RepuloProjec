@@ -9,11 +9,6 @@ import Popup from './Popup';
 
 
 function Home() {
-    const popups = () =>{
-        return(
-             <p> Ez  a tartalom</p>
-        )
-    }
     return (
         <>
             <header>
